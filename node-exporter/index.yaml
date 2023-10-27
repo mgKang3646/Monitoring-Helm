@@ -3,12 +3,12 @@ entries:
   node-exporter:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-10-28T00:38:05.072764+09:00"
+    created: "2023-10-28T00:40:50.70271+09:00"
     description: A Helm chart for Kubernetes
-    digest: d3736682cf05a59e58acbd18beac15db68bb78c41dd703d223d40ec2c3080871
+    digest: 291df6ebff905f55e3c317f6cac041ca49a917fef1e0bba7db8c68df1a59a32d
     name: node-exporter
     type: application
     urls:
     - node-exporter-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-28T00:38:05.072251+09:00"
+generated: "2023-10-28T00:40:50.702347+09:00"
