@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    k8s-app: {{ .Chart.Name }}
+spec:
+  selector:
+    matchLabels:
+      k8s-app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        k8s-app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - image: {{ .Values.daemonset.image }}
+        name: {{ .Chart.Name }}
+        ports:
+        - containerPort: {{ .Values.daemonset.containerPort }}
+          protocol: TCP
+          name: http

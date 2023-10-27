@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  ports:
+  - name: {{ .Values.svc.portName }}
+    port: {{ .Values.svc.svcPort }}
+    nodePort: {{ .Values.svc.nodePort }}
+    protocol: {{ .Values.svc.protocol }}
+  type: {{ .Values.svc.type }}
+  selector:
+    k8s-app: {{ .Chart.Name }}
