@@ -1,0 +1,23 @@
+## Backend : kube-stats-metrice
+## Namespace : kube-system
+apiVersion: v1
+kind: Service
+metadata:
+  labels: 
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  clusterIP: None
+## 8080 --> http-metrics (to Container Port 8080)
+  ports:
+  - name: {{ .Values.svc.metricSvcName }}
+    port: {{ .Values.svc.metricPort }}
+    targetPort: {{ .Values.svc.metricSvcName }}
+## 8081 --> telemetry (to Container Port 8081(
+  - name: {{ .Values.svc.telemetrySvcName }}
+    port: {{ .Values.svc.telemetryPort }}
+    targetPort: {{ .Values.svc.telemetrySvcName }}
+## To Backend pod
+  selector:
+    app: {{ .Chart.Name }}

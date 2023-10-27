@@ -1,0 +1,10 @@
+
+svc:
+  metricSvcName: http-metrics
+  metricPort: 8080
+  telemetrySvcName: telemetry
+  telemetryPort: 8081
+
+deployment:
+  replicaCount: 1
+  image: quay.io/coreos/kube-state-metrics:v1.8.0

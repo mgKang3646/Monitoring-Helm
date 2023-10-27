@@ -1,0 +1,45 @@
+## Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - image: {{ .Values.deployment.image }}
+        name: {{ .Chart.Name }}
+        ports:
+        - containerPort: {{ .Values.svc.metricPort }}
+          name: {{ .Values.svc.metricSvcName }}
+        - containerPort: {{ .Values.svc.telemetryPort }}
+          name: {{ .Values.svc.telemetrySvcName }}
+## LivenessProbe
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: {{ .Values.svc.metricSvcName }}
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+## ReadinessProbe
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.svc.telemetrySvcName }}
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+## nodeSelector
+      nodeSelector:
+        kubernetes.io/os: linux
+## ServiceAccount
+      serviceAccountName: {{ .Chart.Name }}
