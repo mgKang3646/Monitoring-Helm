@@ -5,7 +5,6 @@ daemonset:
   containerPort: 9100
 svc:
   svcPort: 9100
-  nodePort: 31672
   portName: http
   protocol: TCP
   type: NodePort
